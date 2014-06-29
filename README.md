@@ -20,7 +20,7 @@ Current Status
 
 Estimated date of completion is **end of 2014**.
 
-To-Do:
+### To-Do:
 
 * Finish design.
 * Reduce amount of custom parts.
