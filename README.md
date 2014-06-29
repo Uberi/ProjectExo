@@ -135,7 +135,7 @@ Electronic parts are a bit more fickle than the mechanical ones, since there are
 Building
 --------
 
-DISPLAIMER: Compressed air, electricity, and power tools can be dangerous if you're not careful. I am not responsible for any death, dismemberment, spontaneous defecation, or hair loss that may result from following the instructions in this document.
+DISCLAIMER: Compressed air, electricity, and power tools can be dangerous if you're not careful. I am not responsible for any death, dismemberment, spontaneous defecation, or hair loss that may result from following the instructions in this document.
 
 ;wip
 
