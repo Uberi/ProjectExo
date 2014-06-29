@@ -1,10 +1,10 @@
 Project Exo
 ===========
-Design, schematics, and building instructions for Project Exo.
+Design, schematics, and building instructions for a powered full-body exoskeleton.
 
 Requires a basic understanding of math, usage of common power tools, and a fair bit of free time to build.
 
-Total parts cost: \$790.50 CAD. ;wip: update this
+Total parts cost: \$810.48 CAD. ;wip: update this
 
 Current Status
 --------------
@@ -25,14 +25,43 @@ Estimated date of completion is **end of 2014**.
 * Finish design.
 * Reduce amount of custom parts.
 * Create a parts list.
-* Write custom pneumatic piston controller.
-* Actually build the thing.
+* Write custom pneumatic piston controller with position and stiffness controls.
+* Figure out where to get access to a CNC milling machine + machine shop.
+
+Design
+------
+
+* One human operator (designed for height ~1.7m, but adjustable).
+* Rigid, free-standing chassis made out of simple plumbing parts and common building materials, designed with large tolerances and excellent safety margins.
+* Air tank stores compressed air for driving the pneumatic components.
+* Sealed 12V lead-acid battery powers onboard electronics.
+* Pressure sensitive armbands and legbands attached to chassis sense operator motion, which is fed into high-level control.
+* Arduino driving a Darlington array provides high level control of all other subsystems.
+* Electrically controlled 12V pneumatic valves control airflow to the pneumatic pistons.
+* Pneumatic pistons move chassis.
+
+Project Exo is designed to be easy to build, powerful, and as failsafe as possible. All parts operate well within their safety ratings, and plenty of care is taken to restrict the range of motion so that the actuators cannot harm the operator if they malfunction.
 
 Files
 -----
 
-`Design/Design.blend` contains a Blender3D CAD file for the entire system.
-;wip
+In order to view all the design files, you will need [Fritzing](http://fritzing.org/home/) and [Blender3D](http://www.blender.org/).
+
+`Design/Design.blend` contains a Blender3D CAD file for the entire system. ;wip: add this to the Git repo
+`Design/High Level Controller` contains a Fritzing schematic for the high level pneumatics controller.
+
+Tools
+-----
+
+* Metal/plastic saw
+* Soldering iron
+* Standard epoxy
+* Hot glue gun + hot glue
+* Screwdriver
+* Pliers
+* Scissors
+
+A Dremel is also always a nice thing to have on hand. Not strictly necessary, but highly recommended.
 
 Mechanical Parts
 ----------------
@@ -41,15 +70,16 @@ The mechanical parts list can be broken down as follows:
 
 | Part                             | Quantity                  | Market Price (CAD)      |
 |:---------------------------------|:--------------------------|------------------------:|
-| Pipes and Pipe Joints/Connectors | A lot                     |                   50.00 |
-| Double Action Pneumatic Pistons  | 6 short, 2 small, 4 large | 103.44 + 22.08 + 112.84 |
-| Pneumatic Regulators             | 3                         |                   52.50 |
-| Pneumatic Valves                 | 24                        |                  177.60 |
-| Air Tank                         | 1                         |                   59.99 |
+| Pipes and pipe joints/connectors | A lot                     |                   50.00 | ;wip: not an exact value
+| Double action pneumatic pistons  | 6 short, 2 small, 4 large | 103.44 + 22.08 + 112.84 |
+| Pneumatic regulators             | 3                         |                   52.50 |
+| Pneumatic valves                 | 24                        |                  177.60 |
+| Air tank                         | 1                         |                   59.99 |
 | Battery                          | 1                         |                   27.49 |
-| Pneumatic Accessories            | 1 compressor, 1 filter    |          137.09 + 19.99 |
+| PVC primer + cement              | 500ml                     |                   19.98
+| Pneumatic accessories            | 1 compressor, 1 filter    |          137.09 + 19.99 |
 
-In total, the current market price of the mechanical parts is \$763.02 CAD.
+In total, the current market price of the mechanical parts is \$783 CAD.
 
 ### Pipes and Pipe Joints/Connectors
 
@@ -89,6 +119,8 @@ The stroke length is very important as well. This is the length that the piston 
 
 I will be using [4214-ADJ 1/4" Male-to-Female Pressure Regulators](http://www.amazon.com/Coilhose-Pneumatics-4214-ADJ-Adjustable-Regulator/dp/B0037QFFT0/), which are rated for 150psi max input pressure and output between 50psi and 145psi.
 
+;wip: possibly http://www.amazon.com/Mini-Pressure-Regulator-Free-Gauge/dp/B004VGA7NY/ instead, it's cheaper
+
 Pneumatic regulators are very important for safety purposes - they output gas at a constant pressure, even if the input pressure goes over.
 
 ### Pneumatic Valves
@@ -109,6 +141,14 @@ I will be using a [UT1270 12V Sealed Lead-Acid Battery](http://www.amazon.ca/Ult
 
 For testing purposes, it might also be useful to have a [12V Wall Power Supply](http://www.amazon.ca/Quality-Supply-Adapter-Converter-100-240V/dp/B00HSW3X3O/) for testing purposes.
 
+### PVC Primer + Cement
+
+I will be using [Oatley 30755 PVC Primer/Cleaner](http://www.amazon.ca/Oatey-30755-Purple-Primer-Fittings/dp/B00002N6NV/) and [Oatley 30883 PVC Cement](http://www.amazon.ca/Oatey-30883-Medium-Cement-Misc/dp/B000KGB2MO/) for PVC joining.
+
+PVC cement joins PVC by reacting with the two surfaces to join and chemically bonding them together. Out of the factory, PVC is coated with various other material, which must be removed using PVC primer.
+
+The resulting bond has high structural strength, and the joined piece can be load bearing.
+
 ### Pneumatic Accessories
 
 An air compressor is very useful for refilling the air tank. I will be using a [VIAIR 300P Portable Air Compressor](http://www.amazon.ca/VIAIR-30033-300P-Portable-Compressor/dp/B000X90YUO/), which is rated for 150psi max.
@@ -124,9 +164,10 @@ The electronic parts list can be broken down as follows:
 
 | Part                             | Quantity                  | Market Price (CAD)      | Vendor                                                                               |
 |:---------------------------------|:--------------------------|------------------------:|:-------------------------------------------------------------------------------------|
-| P120PK Potentiometer             | 12                        |                    9.48 | [Digi-Key](http://www.digikey.ca/product-search/en?keywords=P120PK)                  |
-| Arduino Nano Revision 3          | 1                         |                   18.00 | [Amazon](http://www.amazon.ca/SainSmart-Nano-v3-0-Compatible-Arduino/dp/B00761NDHI/) |
-;wip: solid state relays, pressure sensors, etc, etc.
+| P120PK potentiometer             | 12                        |                    9.48 | [Digi-Key](http://www.digikey.ca/product-search/en?keywords=P120PK)                  |
+| Arduino Nano revision 3          | 1                         |                   18.00 | [Amazon](http://www.amazon.ca/SainSmart-Nano-v3-0-Compatible-Arduino/dp/B00761NDHI/) |
+| 4-channel 1.5A Darlington array  | 6                         |                   18.12 | [Digi-Key](http://www.digikey.ca/product-detail/en/ULN2069B/497-2352-5-ND/599589)    |
+;wip: pressure switches, perfboard, etc.
 
 In total, the current market price of the mechanical parts is \$27.48 CAD. ;wip: update this
 
