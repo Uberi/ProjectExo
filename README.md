@@ -27,6 +27,8 @@ Estimated date of completion is **end of 2014**.
 * Create a parts list.
 * Write custom pneumatic piston controller.
 * Actually build the thing.
+* ????
+* Profit!!!
 
 Files
 -----
