@@ -93,11 +93,23 @@ Metal pipes would make the whole frame stronger, but the tools for working with 
 
 Pipe joints include things like elbow joints, tee joints, and more obscure ones like vee joints. These are optional if using metal pipes and welding them together.
 
+The design files includes some "unconventional" pipe fittings such as four way and corner fittings, which are generally not available in stores due to not being very useful for plumbing purposes. These fittings can instead be obtained from specialty PVC construction suppliers:
+
+* [Formufit](http://www.formufit.com/), in addition to selling all of the types of PVC components needed for this project, offers guides and tutorials for working with PVC.
+    * A little bit more expensive but very good quality.
+    * The products are also sold on [Amazon](http://www.amazon.com/gp/aag/main?ie=UTF8marketplaceID=ATVPDKIKX0DER&seller=A1T0WSE1JGO9PT).
+* [PVC Plans](http://www.pvcplans.com/pvc-suppliers.htm) maintains a list of suppliers, many of which offer these non-standard fittings.
+    * USA-centric, but several will ship internationally. Sellers seem reputable.
+* [PVC Fittings](http://pvcfittings.com/) offers the lowest prices 
+    * Ridiculously large variety of parts available, but shipping options are limited.
+
 ### Double Action Pneumatic Pistons
 
 I will be using [MAL 16 X 175 Double Action Pneumatic Pistons](http://www.ebay.com/itm/1Pcs-Single-Rod-16-x-175-Dual-Action-Mini-Pneumatic-Cylinder-/141094409413) (16mm bore, 175mm stroke) as the small pistons.
 
 I will be using [MAL 32 X 175 Double Action Pneumatic Pistons](http://www.ebay.com/itm/32mm-Bore-175mm-Stroke-Double-Action-Aluminum-Alloy-Pneumatic-Air-Cylinder-/310973376044) (32mm bore, 175mm stroke) as the large pistons.
+
+;wip: almost out of stock, maybe http://www.ebay.com/itm/MA32-175S-CM-Mini-Pneumatic-Cylinder-Double-Acting-32-175mm-AIRTAC-Type-/261362580432 or http://www.ebay.com/itm/AIRTAC-Type-MA32-175S-CM-Mini-Pneumatic-Cylinder-Double-Acting-32-175mm-/171175049747 instead
 
 I will be using [CQ2B32-100D Double Action Pneumatic Pistons](http://www.ebay.com/itm/General-Model-CQ2B32-100D-Compact-Cylinder-Double-Acting-32-100mm-/360898853102) (32mm bore, 100mm stroke) as the short pistons.
 
@@ -107,7 +119,7 @@ The pistons are responsible for actually moving the frame, and the operator insi
 
 The bore is the diameter of the hole in which the plunger can move back and forth.
 
-It is very important that the pistons are double action. This means that they can push out and push in - single action cylinders can only do one of these.
+It is very important that the pistons are double action. This means that they can push out and pull in - single action cylinders can only do one of these.
 
 The amount of force the piston can output is (essentially) proportional to the surface area of the plunger head, so $F = 0.006895 \pi \frac{d^2}{4} p$, where $F$ is the force in Newtons (9.8 Newtons is roughly 1kg in Earth gravity), $d$ is the bore diameter in mm, and $p$ is the pressure in psi.
 
