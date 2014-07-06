@@ -2,6 +2,8 @@ Project Exo
 ===========
 Design, schematics, and building instructions for a powered full-body exoskeleton.
 
+![Render](Render.png)
+
 Requires a basic understanding of math, usage of common power tools, and a fair bit of free time to build.
 
 Total parts cost: \$810.48 CAD. ;wip: update this
