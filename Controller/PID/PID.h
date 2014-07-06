@@ -19,20 +19,16 @@ You should have received a copy of the Affero GNU General Public License
 along with Project Exo.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-typedef struct {
-	float adjustment_factor;
-	float inverse_integral_time;
-	float inverse_derivative_time;
-	float integral_error;
-	float previous_error;
-	float target;
-	float output;
-} PID;
+// number of samples to use for the derivative low-pass filter
+#define PID_LOWPASS_SAMPLES 3
+
+struct PIDController;
+typedef struct PIDController PID;
 
 PID PID_new(float adjustment_factor, float integral_time, float derivative_time);
 
-PID PID_target(PID controller, float target);
+void PID_target(PID *controller, float target);
 
-float PID_output(PID controller);
+float PID_output(PID *controller);
 
-PID PID_update(PID controller, float dt, float measured_value);
+void PID_update(PID *controller, float dt, float measured_value);
