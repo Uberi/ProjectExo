@@ -22,8 +22,16 @@ along with Project Exo.  If not, see <http://www.gnu.org/licenses/>.
 // number of samples to use for the derivative low-pass filter
 #define PID_LOWPASS_SAMPLES 3
 
-struct PIDController;
-typedef struct PIDController PID;
+typedef struct {
+	float adjustment_factor;
+	float inverse_integral_time;
+	float inverse_derivative_time;
+	float integral_error;
+	float previous_error;
+	float previous_derivatives[PID_LOWPASS_SAMPLES];
+	float target;
+	float output;
+} PID;
 
 PID PID_new(float adjustment_factor, float integral_time, float derivative_time);
 

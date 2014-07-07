@@ -21,17 +21,6 @@ You should have received a copy of the Affero GNU General Public License
 along with Project Exo.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-struct PIDController {
-	float adjustment_factor;
-	float inverse_integral_time;
-	float inverse_derivative_time;
-	float integral_error;
-	float previous_error;
-	float previous_derivatives[PID_LOWPASS_SAMPLES];
-	float target;
-	float output;
-};
-
 PID PID_new(float adjustment_factor, float integral_time, float derivative_time) {
 	PID result = {
 		.adjustment_factor = adjustment_factor,
@@ -56,11 +45,11 @@ float PID_output(PID *controller) {
 
 void PID_update(PID *controller, float dt, float measured_value) {
 	int i;
+	float error = controller->target - measured_value;
 	if (dt < 0.0001) {
 		controller->previous_error = error;
 		return;
 	}
-	float error = controller->target - measured_value;
 	controller->integral_error += error * dt; // update itnegral value
 	float derivative = (error - controller->previous_error) / dt; // update derivative value
 	controller->previous_error = error;

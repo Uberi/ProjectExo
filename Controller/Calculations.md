@@ -39,3 +39,5 @@ By the cosine law, $x^2 = s^2 + L^2 - 2sL \cos \theta$ and $x = \sqrt{s^2 + L^2 
 The accuracy of $\cos$ is $\pm 0.001$ in the output, so $x = \sqrt{s^2 + L^2 - 2sL \cos \theta \pm 0.002sL}$.
 
 The pneumatic controller uses this to convert the setpoint and measured value of a PID controller so that it works in terms of $x$ rather than $\theta$. The PID controller then calculates the value of $P_1 - P_2$.
+
+Also, $\theta = \arccos \frac{s^2 + L^2 - x^2}{2sL}$.

@@ -25,27 +25,31 @@ along with Project Exo.  If not, see <http://www.gnu.org/licenses/>.
 
 struct LimbController {
 	float k_1, k_2; // constants used in calculating transformations
+	float lower, upper; // bounds on piston extension
+	PID controller;
 };
 
 Limb Limb_new(float separation, float length) {
 	Limb result = {
 		.k_1 = separation * separation + length * length,
 		.k_2 = 2 * separation * length,
-		.controller = PID_new(12, 20, 25),
+		.lower = length - separation, .upper = length + separation,
+		.controller = PID_new(3, 2000, 20),
 	};
 	return result;
 }
 
-float Limb_pressure(Limb *limb, float desired_limb_angle) {
+void Limb_target(Limb *limb, float desired_limb_angle) {
 	float extension = sqrt(limb->k_1 - limb->k_2 * cos(desired_limb_angle));
-	return PID_target(controller, extension);
+	if (extension <= limb->lower) extension = limb->lower + 0.01; else if (extension >= limb->upper) extension = limb->upper - 0.01;
+	PID_target(&(limb->controller), extension);
 	//wip: this is the difference in pressure, not the pressures on each side of the plunger - implement controllers for that
 	//wip: the stiffness of the joint is determined by the pressures on both sides, so the P_2 in P_1 - P_2
 	//wip: we actually control the derivative of the pressure (valves on/off) rather than the pressure itself, account for this
 }
 
-float Limb_output(controller) {
-	return limb->controller.output;
+float Limb_pressure(Limb *limb) {
+	return limb->controller.output; //wip: change this so that it controls the second integral of acceleration, displacement
 }
 
 void Limb_update(Limb *limb, float actual_limb_angle) {
@@ -54,6 +58,7 @@ void Limb_update(Limb *limb, float actual_limb_angle) {
 	float dt = (new_time - time) / 1000;
 	time = new_time;
 	if (dt > 100) dt = 100; // clamp `dt` to 100 milliseconds
-	float extension = sqrt(limb->k_1 - limb->k_2 * cos(desired_limb_angle));
-	PID_update(controller, dt, extension);
+	float extension = sqrt(limb->k_1 - limb->k_2 * cos(actual_limb_angle));
+	if (extension <= limb->lower) extension = limb->lower + 0.01; else if (extension >= limb->upper) extension = limb->upper - 0.01;
+	PID_update(&(limb->controller), dt, extension);
 }

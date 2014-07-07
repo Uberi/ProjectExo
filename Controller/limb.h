@@ -22,14 +22,10 @@ along with Project Exo.  If not, see <http://www.gnu.org/licenses/>.
 struct LimbController;
 typedef struct LimbController Limb;
 
-struct LimbController {
-	float k_1, k_2; // constants used in calculating transformations
-};
-
 Limb Limb_new(float separation, float length);
 
-float Limb_pressure(Limb *limb, float desired_limb_angle);
+void Limb_target(Limb *limb, float desired_limb_angle);
 
-float Limb_output(controller);
+float Limb_pressure(Limb *limb);
 
 void Limb_update(Limb *limb, float actual_limb_angle);
