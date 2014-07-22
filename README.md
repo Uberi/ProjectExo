@@ -15,7 +15,7 @@ Current Status
 |:------------------------------|:--------------|:--------------------------|
 | Design Research               | **Complete**  | 2 weeks                   |
 | Design Requirements           | **Complete**  | 4 days                    |
-| Mechanical Design/Prototyping | 40% done      | 4 weeks                   |
+| Mechanical Design/Prototyping | 80% done      | 4 weeks                   |
 | Electronic Design/Prototyping | 10% done      | 5 weeks                   |
 | Part/Tool Sourcing            | _Pending_     | 20 days                   |
 | Production/Revision           | _Pending_     | 4 weeks                   |
