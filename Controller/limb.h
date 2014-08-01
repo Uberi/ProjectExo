@@ -28,4 +28,4 @@ void Limb_target(Limb *limb, float desired_limb_angle);
 
 float Limb_pressure(Limb *limb);
 
-void Limb_update(Limb *limb, float actual_limb_angle);
+void Limb_update(Limb *limb, float actual_limb_angle, float velocity);

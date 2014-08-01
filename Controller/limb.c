@@ -27,6 +27,7 @@ struct LimbController {
 	float k_1, k_2; // constants used in calculating transformations
 	float lower, upper; // bounds on piston extension
 	PID controller;
+	float pressure, previous_velocity;
 };
 
 Limb Limb_new(float separation, float length) {
@@ -34,7 +35,9 @@ Limb Limb_new(float separation, float length) {
 		.k_1 = separation * separation + length * length,
 		.k_2 = 2 * separation * length,
 		.lower = length - separation, .upper = length + separation,
-		.controller = PID_new(3, 2000, 20),
+		.controller = PID_new(5, 20, 20),
+		.pressure = 0,
+		.previous_velocity = 0,
 	};
 	return result;
 }
@@ -49,16 +52,16 @@ void Limb_target(Limb *limb, float desired_limb_angle) {
 }
 
 float Limb_pressure(Limb *limb) {
-	return limb->controller.output; //wip: change this so that it controls the second integral of acceleration, displacement
+	return limb->pressure; //wip: change this so that it controls the second integral of acceleration, displacement
 }
 
-void Limb_update(Limb *limb, float actual_limb_angle) {
+void Limb_update(Limb *limb, float actual_limb_angle, float velocity) {
 	static unsigned int time = 0;
-	unsigned int new_time = microseconds();
-	float dt = (new_time - time) / 1000;
-	time = new_time;
-	if (dt > 100) dt = 100; // clamp `dt` to 100 milliseconds
+	unsigned int new_time = microseconds(); float dt = (new_time - time) / 1000000.0; time = new_time;
+	if (dt > 0.1) dt = 0.1; else if (dt <= 0) return; // clamp `dt` to 100 milliseconds
 	float extension = sqrt(limb->k_1 - limb->k_2 * cos(actual_limb_angle));
-	if (extension <= limb->lower) extension = limb->lower + 0.01; else if (extension >= limb->upper) extension = limb->upper - 0.01;
+	if (extension <= limb->lower) extension = limb->lower + 0.01; else if (extension >= limb->upper) extension = limb->upper - 0.01; // clamp extension to valid range
 	PID_update(&(limb->controller), dt, extension);
+	limb->pressure = (PID_output(&(limb->controller)) - limb->previous_velocity) / dt;
+	limb->previous_velocity = velocity;
 }

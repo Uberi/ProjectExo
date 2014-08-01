@@ -23,8 +23,8 @@ int main(void) {
 		v += a * dt; piston_pos += v * dt;
 		if (piston_pos < length - separation) piston_pos = length - separation + 0.001; else if (piston_pos > length + separation) piston_pos = length + separation - 0.001;
 		p = acos((separation * separation + length * length - piston_pos * piston_pos) / (2 * separation * length));
-		printf("Time: %f\tError: %f\tPiston: %f\tVelocity: %f\tAcceleration: %f\n", t, target - p, piston_pos, v, a);
-		Limb_update(&c, p);
+		printf("Time: %12f   Error: %12f   Piston: %12f   Velocity: %12f   Acceleration: %12f\n", t, target - p, piston_pos, v, a);
+		Limb_update(&c, p, v);
 	}
 	return 0;
 }
